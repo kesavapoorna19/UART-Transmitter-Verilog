@@ -1,49 +1,71 @@
-# UART Transmitter Test Project
+# UART Transmitter Using Verilog HDL
 
-This project implements a simple UART transmitter (`uart_tx.v`) in Verilog, along with a testbench (`tb_uart_tx.v`) to verify the design using simulation. The transmitter sends an 8-bit data byte with standard UART framing: 1 start bit, 8 data bits (LSB first), and 1 stop bit.
+## 1. Project Overview
 
-## 🔧 Files Included
+This project implements a basic UART (Universal Asynchronous Receiver/Transmitter) transmitter using Verilog HDL.
 
-| File Name        | Description                     |
-|------------------|---------------------------------|
-| `uart_tx.v`      | UART transmitter RTL design     |
-| `tb_uart_tx.v`   | Testbench for verifying `uart_tx` |
-| `RTL_uart_tx.pdf`| Block diagram of the design     |
-| `wave_tb_uart_tx.png` | Simulation waveform output |
+The design transmits 8-bit parallel data serially through a single TX output line.
 
-## 🧩 RTL Architecture
+## 2. Features
 
-The UART transmitter FSM has the following states:
+- UART transmitter design using Verilog HDL
+- 8-bit data transmission
+- Start bit and stop bit generation
+- Least Significant Bit (LSB) first transmission
+- Finite State Machine (FSM) based architecture
+- Verilog testbench for functional simulation
 
-- **IDLE**: Wait for `tx_start`
-- **START**: Send logic 0 (start bit)
-- **DATA**: Shift out 8 bits, LSB first
-- **STOP**: Send logic 1 (stop bit)
-- **DONE**: Return to IDLE
+## 3. UART Frame Format
 
-![RTL Diagram](RTL_uart_tx.pdf)
+The transmitter uses the following frame structure:
 
-## 📈 Simulation Waveform
+- 1 Start bit (LOW)
+- 8 Data bits
+- 1 Stop bit (HIGH)
 
-Simulation was done using ModelSim. The following waveform illustrates the transmission of `0xA5`:
+## 4. FSM States
 
-![Waveform](wave_tb_uart_tx.png)
+The design uses five states:
 
-## 🧪 Test Description
+| State | Description |
+|---|---|
+| IDLE | Waits for transmission request |
+| START | Sends start bit |
+| DATA | Sends 8 data bits |
+| STOP | Sends stop bit |
+| DONE | Completes transmission |
 
-The testbench:
-1. Resets the system.
-2. Loads data `0xA5` into `data_in`.
-3. Asserts `tx_start` for one clock cycle.
-4. Waits until `busy` returns to 0.
-5. Ends the simulation with `$finish`.
+## 5. Project Files
 
-## 🛠️ Toolchain
+- `uart_tx.v` – UART transmitter RTL design.
+- `tb_uart_tx.v` – Testbench for the transmitter.
+- `RTL_uart_tx.pdf` – Reference design document.
+- `wave_tb_uart_tx.png` – Reference waveform image.
 
-- **Design Entry & Synthesis**: Quartus Prime Lite
-- **Simulation**: ModelSim Intel FPGA Edition 10.5b
+## 6. Design Parameters
 
----
+- Data width: 8 bits
+- Clock: 100 MHz (testbench)
+- Baud timing: 16 clock cycles per bit
 
-Feel free to clone, study, or modify the project as a foundation for more advanced UART designs.
+## 7. Tools and Technologies
 
+- Verilog HDL
+- RTL Design
+- Finite State Machine (FSM)
+- Testbench-based verification
+
+## 8. Original Source and Attribution
+
+This repository is based on an existing UART transmitter project.
+
+Original source: https://github.com/Huichingchang/uart_tx_test
+
+Credit goes to the original author. This repository is shared for learning and educational purposes.
+
+## 9. Learning Outcomes
+
+- Understanding UART serial communication
+- Learning Verilog RTL coding
+- Understanding FSM-based digital design
+- Understanding Verilog testbench structure
